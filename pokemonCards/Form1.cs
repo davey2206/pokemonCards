@@ -54,7 +54,7 @@ namespace pokemonCards
                     pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                     panel1.Controls.Add(pictureBox1);
                     x = x + 130;
-                    if (x == 780)
+                    if (x > (panel1.Size.Width - 50))
                     {
                         x = 0;
                         y = y + 180;
