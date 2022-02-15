@@ -10,37 +10,42 @@ using System.Windows.Forms;
 using System.Collections;
 using PokemonTcgSdk;
 using System.Net;
-
 namespace pokemonCards
 {
-    public partial class Form1 : Form
+    public partial class ProtoType_Collection : Form
     {
-        public Form1()
+        public ProtoType_Collection()
         {
             InitializeComponent();
             var sets = Sets.All();
+
             foreach (var set in sets)
             {
-                comboBox1.Items.Add(set.Code.ToString());
+                comboBox1.Items.Add(set.Name.ToString());
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            for (int i = 0; i < 10; i++)
+            List<PictureBox> pictures = this.panel1.Controls.OfType<PictureBox>().ToList();
+            foreach (PictureBox pic in pictures)
             {
-                foreach (Control control in this.panel1.Controls)
-                {
-                    PictureBox picture = control as PictureBox;
-                    this.panel1.Controls.Remove(picture);
-                }
+                this.panel1.Controls.Remove(pic);
             }
             int x = 0;
             int y = 0;
-            Dictionary<string, string> query = new Dictionary<string, string>()
+            var sets = Sets.All();
+            Dictionary<string, string> query = new Dictionary<string, string>();
+            foreach (var set in sets)
             {
-                { "setCode", comboBox1.SelectedItem.ToString() }
-            };
+                if (set.Name == comboBox1.SelectedItem.ToString())
+                {
+                    query = new Dictionary<string, string>()
+                    {
+                        { "setCode",  set.Code.ToString() }
+                    };
+                }
+            }
             var cards = Card.Get(query);
             if (cards.Cards != null)
             {
@@ -52,12 +57,14 @@ namespace pokemonCards
                     pictureBox1.Size = new System.Drawing.Size(125, 175);
                     pictureBox1.Load(card.ImageUrl);
                     pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+                    pictureBox1.MouseDown += ((o, a) => pictureBox1.Size = new System.Drawing.Size(325, 450));
+                    pictureBox1.MouseUp += ((o, a) => pictureBox1.Size = new System.Drawing.Size(125, 175));
                     panel1.Controls.Add(pictureBox1);
-                    x = x + 130;
-                    if (x > (panel1.Size.Width - 50))
+                    x = x + 150;
+                    if (x > (panel1.Size.Width - 325))
                     {
                         x = 0;
-                        y = y + 180;
+                        y = y + 200;
                     }
                 }
             }
