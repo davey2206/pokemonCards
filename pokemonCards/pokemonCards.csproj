@@ -104,6 +104,24 @@
     <None Include="Resources\background1.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\background3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background4.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\card_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\background2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Button3.png" />
   </ItemGroup>
   <ItemGroup>

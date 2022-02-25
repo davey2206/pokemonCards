@@ -47,19 +47,21 @@ namespace pokemonCards
                 }
             }
             var cards = Card.Get(query);
+            List<string> lCards = new List<string>();
             if (cards.Cards != null)
             {
                 foreach (var card in cards.Cards)
                 {
+                    lCards.Add(card.Id);
                     PictureBox pictureBox1 = new PictureBox();
                     pictureBox1.Location = new System.Drawing.Point(x, y);
                     pictureBox1.Name = "pictureBox1";
                     pictureBox1.Size = new System.Drawing.Size(125, 175);
-                    pictureBox1.Load(card.ImageUrl);
                     pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                     pictureBox1.MouseDown += ((o, a) => pictureBox1.Size = new System.Drawing.Size(325, 450));
                     pictureBox1.MouseUp += ((o, a) => pictureBox1.Size = new System.Drawing.Size(125, 175));
                     panel1.Controls.Add(pictureBox1);
+                    pictureBox1.ImageLocation = card.ImageUrl;
                     x = x + 150;
                     if (x > (panel1.Size.Width - 325))
                     {
@@ -67,6 +69,20 @@ namespace pokemonCards
                         y = y + 200;
                     }
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var sets = Sets.All();
+            while (sets.Count == 0)
+            {
+                sets = Sets.All();
+            }
+
+            foreach (var set in sets)
+            {
+                comboBox1.Items.Add(set.Name.ToString());
             }
         }
     }
